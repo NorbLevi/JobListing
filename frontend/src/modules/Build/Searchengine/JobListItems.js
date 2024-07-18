@@ -1,0 +1,48 @@
+// JobListItems.js
+import { FaGoogle, FaFacebook, FaNetflix, FaAmazon, FaMicrosoft, FaTwitter, FaSalesforce, FaJediOrder, FaSpotify, FaAirbnb, FaApple, FaAdobe, FaOracle, FaSlack, FaUber, FaYahoo, FaDropbox, FaPaypal, FaEbay } from 'react-icons/fa';
+
+const jobs = [
+    { id: 1, title: 'Software Engineer', company: 'Google', location: 'New York', type: 'Full-Time', icon: < FaGoogle /> },
+    { id: 2, title: 'Product Manager', company: 'Facebook', location: 'San Francisco', type: 'Part-Time', icon: <FaFacebook /> },
+    { id: 3, title: 'Data Scientist', company: 'Netflix', location: 'Los Angeles', type: 'Full-Time', icon: <FaNetflix /> },
+    { id: 4, title: 'UX Designer', company: 'Amazon', location: 'Seattle', type: 'Full-Time', icon: <FaAmazon /> },
+    { id: 5, title: 'DevOps Engineer', company: 'Microsoft', location: 'Redmond', type: 'Full-Time', icon: <FaMicrosoft /> },
+    { id: 6, title: 'Marketing Specialist', company: 'Twitter', location: 'San Francisco', type: 'Part-Time', icon: <FaTwitter /> },
+    { id: 7, title: 'Account Manager', company: 'Salesforce', location: 'San Francisco', type: 'Full-Time', icon: <FaSalesforce /> },
+    { id: 8, title: 'Financial Analyst', company: 'JP Morgan', location: 'New York', type: 'Full-Time', icon: <FaJediOrder /> },
+    { id: 9, title: 'HR Coordinator', company: 'Spotify', location: 'New York', type: 'Part-Time', icon: <FaSpotify /> },
+    { id: 10, title: 'Backend Developer', company: 'Airbnb', location: 'San Francisco', type: 'Full-Time', icon: <FaAirbnb /> },
+    { id: 11, title: 'Frontend Developer', company: 'Apple', location: 'Cupertino', type: 'Full-Time', icon: <FaApple /> },
+    { id: 12, title: 'Creative Director', company: 'Adobe', location: 'San Jose', type: 'Full-Time', icon: <FaAdobe /> },
+    { id: 13, title: 'Database Administrator', company: 'Oracle', location: 'Redwood City', type: 'Full-Time', icon: <FaOracle /> },
+    { id: 14, title: 'Technical Support Engineer', company: 'Slack', location: 'San Francisco', type: 'Full-Time', icon: <FaSlack /> },
+    { id: 15, title: 'Operations Manager', company: 'Uber', location: 'San Francisco', type: 'Full-Time', icon: <FaUber /> },
+    { id: 16, title: 'Software Architect', company: 'Yahoo', location: 'Sunnyvale', type: 'Full-Time', icon: <FaYahoo /> },
+    { id: 17, title: 'Cloud Engineer', company: 'Dropbox', location: 'San Francisco', type: 'Full-Time', icon: <FaDropbox /> },
+    { id: 18, title: 'Security Analyst', company: 'PayPal', location: 'San Jose', type: 'Full-Time', icon: <FaPaypal /> },
+    { id: 19, title: 'Business Analyst', company: 'eBay', location: 'San Jose', type: 'Full-Time', icon: <FaEbay /> },
+    { id: 20, title: 'Mobile Developer', company: 'Apple', location: 'Cupertino', type: 'Full-Time', icon: <FaApple /> },
+    { id: 21, title: 'Graphics Designer', company: 'Adobe', location: 'San Jose', type: 'Part-Time', icon: <FaAdobe /> },
+    { id: 22, title: 'Project Manager', company: 'Oracle', location: 'Redwood City', type: 'Full-Time', icon: <FaOracle /> },
+    { id: 23, title: 'Product Designer', company: 'Slack', location: 'San Francisco', type: 'Full-Time', icon: <FaSlack /> },
+    { id: 24, title: 'Data Engineer', company: 'Uber', location: 'San Francisco', type: 'Full-Time', icon: <FaUber /> },
+    { id: 25, title: 'Network Engineer', company: 'Yahoo', location: 'Sunnyvale', type: 'Full-Time', icon: <FaYahoo /> },
+    { id: 26, title: 'Full-Stack Developer', company: 'Dropbox', location: 'San Francisco', type: 'Full-Time', icon: <FaDropbox /> },
+    { id: 27, title: 'QA Engineer', company: 'PayPal', location: 'San Jose', type: 'Full-Time', icon: <FaPaypal /> },
+    { id: 28, title: 'Business Consultant', company: 'eBay', location: 'San Jose', type: 'Full-Time', icon: <FaEbay /> },
+    { id: 29, title: 'Machine Learning Engineer', company: 'Google', location: 'New York', type: 'Full-Time', icon: <FaGoogle /> },
+    { id: 30, title: 'Sales Executive', company: 'Facebook', location: 'San Francisco', type: 'Part-Time', icon: <FaFacebook /> },
+    { id: 31, title: 'Digital Marketer', company: 'Netflix', location: 'Los Angeles', type: 'Full-Time', icon: <FaNetflix /> },
+    { id: 32, title: 'Content Strategist', company: 'Amazon', location: 'Seattle', type: 'Full-Time', icon: <FaAmazon /> },
+    { id: 33, title: 'Cyber Security Specialist', company: 'Microsoft', location: 'Redmond', type: 'Full-Time', icon: <FaMicrosoft /> },
+    { id: 34, title: 'SEO Specialist', company: 'Twitter', location: 'San Francisco', type: 'Part-Time', icon: <FaTwitter /> },
+    { id: 35, title: 'Customer Support Specialist', company: 'Salesforce', location: 'San Francisco', type: 'Full-Time', icon: <FaSalesforce /> },
+    { id: 36, title: 'Blockchain Developer', company: 'JP Morgan', location: 'New York', type: 'Full-Time', icon: <FaJediOrder /> },
+    { id: 37, title: 'Talent Acquisition Specialist', company: 'Spotify', location: 'New York', type: 'Part-Time', icon: <FaSpotify /> },
+    { id: 38, title: 'Systems Engineer', company: 'Airbnb', location: 'San Francisco', type: 'Full-Time', icon: <FaAirbnb /> },
+    { id: 39, title: 'Software Tester', company: 'Apple', location: 'Cupertino', type: 'Full-Time', icon: <FaApple /> },
+    { id: 40, title: 'UI Developer', company: 'Adobe', location: 'San Jose', type: 'Full-Time', icon: <FaAdobe /> },
+    // Add more jobs up to 100
+];
+
+export default jobs;

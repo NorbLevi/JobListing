@@ -19,7 +19,7 @@ export const Features = () => {
             One of the most used websites for create resumes, easy and fast!
             with professional templates!
           </p>
-          <NavLink to="/build" className="btn-primary py-3 px-5 text-lg">
+          <NavLink to="/clientdashboard" className="btn-primary py-3 px-5 text-lg">
             Create Resume for free
           </NavLink>
         </div>

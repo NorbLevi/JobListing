@@ -1,27 +1,42 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api'; // Adjust this URL according to your backend server
+const API_URL = 'http://localhost:5000/api';
 
-const api = axios.create({
-  baseURL: API_URL,
-});
-
-export const register = (userData) => {
-  return api.post('/auth/register', userData);
+export const register = async (userData) => {
+  try {
+    const response = await axios.post(`${API_URL}/users/register`, userData);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const login = async (credentials) => {
-  return axios.post(`${API_URL}/auth/login`, credentials);
+  try {
+    const response = await axios.post(`${API_URL}/users/login`, credentials);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const loginWithGoogle = () => {
-  window.location.href = `${API_URL}/auth/google`;
+    window.location.href = 'http://localhost:5000/auth/google';
 };
 
 export const loginWithGitHub = () => {
-  window.location.href = `${API_URL}/auth/github`;
+    window.location.href = 'http://localhost:5000/auth/github';
 };
 
 export const loginWithLinkedIn = () => {
-  window.location.href = `${API_URL}/auth/linkedin`;
+    window.location.href = 'http://localhost:5000/auth/linkedin';
+};
+
+export const searchJobs = async (searchParams) => {
+  try {
+    const response = await axios.get(`${API_URL}/jobs/search`, { params: searchParams });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };

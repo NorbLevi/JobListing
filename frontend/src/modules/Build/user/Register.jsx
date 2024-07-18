@@ -1,6 +1,5 @@
-// src/components/Register.js
 import React, { useState } from 'react';
-import { register, loginWithGoogle, loginWithGitHub, loginWithLinkedIn } from '../../../services/api';
+import { register } from '../../../services/api';
 import NavBar from '../../Landing/components/Navbar';
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
@@ -11,22 +10,46 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('individual');
+  const [companyDetails, setCompanyDetails] = useState({
+    companyName: '',
+    position: '',
+    type: '',
+    address: '',
+    location: '',
+    city: '',
+    industry: ''
+  });
   const [error, setError] = useState('');
+  const [existingCompanyError, setExistingCompanyError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const requestData = { name, email, password };
-    console.log('Request Data:', requestData);
+    const requestData = { name, email, password, role, ...companyDetails };
     try {
       const response = await register(requestData);
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify({ name, email }));
-      navigate('/dashboard'); // Adjust according to your route
+      localStorage.setItem('user', JSON.stringify({ name, email, role }));
+      if (role === 'company') {
+        navigate('/employer-dashboard');
+      } else {
+        navigate('/employee-dashboard');
+      }
     } catch (error) {
-      console.error('Error registering user:', error.response.data);
-      setError('Error registering user');
+      if (error.response && error.response.data.message === 'Company already registered') {
+        setExistingCompanyError('Company already registered. Would you like to log in?');
+      } else {
+        setError('Error registering user');
+      }
     }
+  };
+
+  const handleCompanyDetailsChange = (e) => {
+    setCompanyDetails({
+      ...companyDetails,
+      [e.target.name]: e.target.value
+    });
   };
 
   return (
@@ -35,61 +58,146 @@ const Register = () => {
       <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-md">
         <h2 className="text-2xl font-bold text-center">Register</h2>
         {error && <p className="text-red-500">{error}</p>}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <NavLink to="//dashbord">
-          <button type="submit" className="w-full p-2 text-white bg-purple-600 rounded-md hover:bg-purple-700">
-            Register
-          </button>
-          </NavLink>
-          
-        </form>
-        <div className="flex flex-col items-center">
-          <p className="mt-4">Sign in with</p>
-          <div className="flex mt-6 justify-center w-full space-x-4">
-            <button onClick={loginWithGoogle} className="flex items-center justify-center w-1/3 p-2 text-black border rounded-md">
-              <FcGoogle className="mr-2 h-6 w-6" /> Google
-            </button>
-            <button onClick={loginWithGitHub} className="flex items-center justify-center w-1/3 p-2 text-black border rounded-md">
-              <FaGithub className="mr-2 h-6 w-6" /> GitHub
-            </button>
-            <button onClick={loginWithLinkedIn} className="flex items-center justify-center w-1/3 p-2 text-black border rounded-md">
-              <FaLinkedin className="mr-2 h-6 w-6" /> LinkedIn
+        {existingCompanyError && (
+          <div className="space-y-4">
+            <p className="text-red-500">{existingCompanyError}</p>
+            <button
+              onClick={() => navigate('/login')}
+              className="w-full p-2 text-white bg-purple-600 rounded-md hover:bg-purple-700"
+            >
+              Log In
             </button>
           </div>
-          <p className="mt-4 text-center">
-            Already have an account? <NavLink to="/login" className="text-purple-500 underline">Login</NavLink>
-          </p>
-        </div>
+        )}
+        {!existingCompanyError && (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Register as</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md"
+              >
+                <option value="individual">Individual</option>
+                <option value="company">Company</option>
+              </select>
+            </div>
+            {role === 'company' && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Company Name</label>
+                  <input
+                    type="text"
+                    name="companyName"
+                    value={companyDetails.companyName}
+                    onChange={handleCompanyDetailsChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Position</label>
+                  <input
+                    type="text"
+                    name="position"
+                    value={companyDetails.position}
+                    onChange={handleCompanyDetailsChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Type of Company</label>
+                  <input
+                    type="text"
+                    name="type"
+                    value={companyDetails.type}
+                    onChange={handleCompanyDetailsChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Address</label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={companyDetails.address}
+                    onChange={handleCompanyDetailsChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Location</label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={companyDetails.location}
+                    onChange={handleCompanyDetailsChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">City</label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={companyDetails.city}
+                    onChange={handleCompanyDetailsChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Industry</label>
+                  <input
+                    type="text"
+                    name="industry"
+                    value={companyDetails.industry}
+                    onChange={handleCompanyDetailsChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+              </>
+            )}
+            <button type="submit" className="w-full p-2 text-white bg-purple-600 rounded-md hover:bg-purple-700">
+              Register
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

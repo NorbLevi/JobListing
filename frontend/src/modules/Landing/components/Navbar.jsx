@@ -13,7 +13,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="space-x-4">
-        <Link to="/find-jobs" className="text-gray-600 hover:text-primary hover:scale-125">Find Jobs</Link>
+        <Link to="/jobs" className="text-gray-600 hover:text-primary hover:scale-125">Find Jobs</Link>
         <Link to="/browse-companies" className="text-gray-600 hover:text-primary hover:scale-125">Browse Companies</Link>
         <Link to="/login" className="text-gray-600 hover:text-primary hover:scale-125">Login</Link>
         <button>
